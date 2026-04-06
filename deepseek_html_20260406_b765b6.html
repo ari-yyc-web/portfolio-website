@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Ariya Khaliyy | Intelligent Systems & Enterprise Design</title>
+  <!-- IBM Plex Sans + Google Fonts (hint: the corporate typeface) -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #ffffff;
+      color: #1a2c3e;
+      line-height: 1.4;
+      scroll-behavior: smooth;
+    }
+
+    /* subtle grid pattern — enterprise blueprint feel */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background-image: 
+        linear-gradient(#eef2f9 1px, transparent 1px),
+        linear-gradient(90deg, #eef2f9 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.4;
+      z-index: -2;
+    }
+
+    /* glowing blue orb (subtle, futuristic) */
+    body::after {
+      content: "";
+      position: fixed;
+      top: -20%;
+      right: -10%;
+      width: 60%;
+      height: 80%;
+      background: radial-gradient(circle, rgba(0, 115, 230, 0.05) 0%, rgba(0, 115, 230, 0) 70%);
+      pointer-events: none;
+      z-index: -1;
+      border-radius: 50%;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Header & Navigation */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      background: #0f62ac;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 16px -6px rgba(15, 98, 172, 0.2);
+    }
+
+    /* three horizontal stripes — iconic nod (eight stripes reimagined) */
+    .logo-icon span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: white;
+      margin: 3px 0;
+      border-radius: 2px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.3);
+    }
+    .logo-icon span:nth-child(2) { width: 16px; }
+    .logo-icon span:nth-child(3) { width: 22px; }
+
+    .logo-text {
+      font-weight: 600;
+      font-size: 1.55rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #0f62ac, #002d6b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #2c3e4e;
+      transition: 0.2s;
+      font-size: 0.95rem;
+      letter-spacing: 0.3px;
+    }
+    .nav-links a:hover {
+      color: #0f62ac;
+      border-bottom: 2px solid #0f62ac;
+      padding-bottom: 4px;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: #0f62ac;
+      color: white;
+      padding: 0.8rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: #002d6b;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 20px -10px rgba(15, 98, 172, 0.4);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid #0f62ac;
+      color: #0f62ac;
+      padding: 0.7rem 1.6rem;
+      border-radius: 40px;
+      font-weight: 600;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .btn-outline:hover {
+      background: #0f62ac10;
+      border-color: #002d6b;
+      color: #002d6b;
+      transform: translateY(-2px);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 4rem 0 5rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .hero-badge {
+      background: #eef2fa;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      width: fit-content;
+      color: #0f62ac;
+      letter-spacing: 0.3px;
+      backdrop-filter: blur(2px);
+    }
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #0a2942, #0f62ac);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-highlight {
+      font-size: 1.2rem;
+      color: #2c5a7a;
+      border-left: 4px solid #0f62ac;
+      padding-left: 1rem;
+      margin-top: 0.5rem;
+      font-weight: 450;
+    }
+    .think-tag {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 0.5rem;
+    }
+    .think-tag span {
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      background: #f0f4f9;
+      padding: 0.3rem 0.9rem;
+      border-radius: 24px;
+      color: #0f62ac;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .stat {
+      display: flex;
+      flex-direction: column;
+    }
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0f62ac;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #5a6874;
+    }
+
+    /* Section Headers */
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 0;
+      width: 56px;
+      height: 3px;
+      background: #0f62ac;
+      border-radius: 4px;
+    }
+
+    /* Project Cards Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0 3rem;
+    }
+    .project-card {
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 1.8rem;
+      transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+      border: 1px solid #e9edf2;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+    }
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: #cfe2ff;
+      box-shadow: 0 20px 35px -12px rgba(15, 98, 172, 0.2);
+    }
+    .project-icon {
+      font-size: 2.5rem;
+      color: #0f62ac;
+      margin-bottom: 1.2rem;
+    }
+    .project-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .project-card p {
+      color: #4a5b6b;
+      line-height: 1.5;
+      margin-bottom: 1.2rem;
+    }
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .tech-stack span {
+      font-size: 0.7rem;
+      background: #eff3f8;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-weight: 500;
+      color: #1f4e79;
+    }
+
+    /* About + Skills */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin: 2rem 0;
+    }
+    .about-text {
+      font-size: 1.05rem;
+      line-height: 1.5;
+      color: #2c3e4e;
+    }
+    .skill-badge {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+    .skill-badge span {
+      background: white;
+      border: 1px solid #cbdde9;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.85rem;
+      transition: 0.1s;
+    }
+    .skill-badge span:hover {
+      border-color: #0f62ac;
+      color: #0f62ac;
+    }
+
+    /* Contact Section */
+    .contact-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin: 2rem 0 3rem;
+    }
+    .contact-card {
+      flex: 1;
+      min-width: 220px;
+      background: #fafcff;
+      border-radius: 32px;
+      padding: 2rem 1.8rem;
+      text-align: center;
+      border: 1px solid #eef2f9;
+      transition: all 0.2s;
+    }
+    .contact-card i {
+      font-size: 2.4rem;
+      color: #0f62ac;
+      margin-bottom: 1rem;
+    }
+    .contact-card h4 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .contact-card p {
+      color: #2f5a7a;
+      font-weight: 500;
+      word-break: break-all;
+    }
+    .contact-card a {
+      text-decoration: none;
+      color: #0f62ac;
+      font-weight: 600;
+      border-bottom: 1px dotted #8cb3d9;
+    }
+
+    /* Footer & final hint */
+    .footer {
+      margin-top: 5rem;
+      border-top: 1px solid #e2e8f0;
+      padding: 2.5rem 0 3rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #5f7d9c;
+    }
+    .footer .smarter {
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      background: #eef3fc;
+      display: inline-block;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 780px) {
+      .container {
+        padding: 0 1.5rem;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-links {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 1.5rem;
+      }
+      .section-title {
+        font-size: 1.8rem;
+      }
+    }
+    @media (max-width: 500px) {
+      .hero-stats {
+        gap: 1.2rem;
+      }
+      .btn-primary, .btn-outline {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.8rem;
+      }
+    }
+    .highlight-blue {
+      color: #0f62ac;
+    }
+    i, .fas, .far {
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header / Navigation -->
+    <div class="header">
+      <div class="logo">
+        <div class="logo-icon">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="logo-text">ARIYA</div>
+      </div>
+      <div class="nav-links">
+        <a href="#work">Work</a>
+        <a href="#about">Approach</a>
+        <a href="#contact">Connect</a>
+        <a href="#" class="btn-outline" style="padding:0.4rem 1.2rem; font-size:0.8rem;"><i class="fas fa-code-branch"></i> Insights</a>
+      </div>
+    </div>
+
+    <!-- Hero Section with 'Think' nod -->
+    <div class="hero">
+      <div class="hero-badge">
+        <i class="fas fa-microchip"></i>  next‑gen engineering
+      </div>
+      <h1>Building systems that<br>shape a <span class="highlight-blue">smarter</span> world.</h1>
+      <div class="hero-highlight">
+        Ariya Khaliyy — Architecting resilient AI & cloud ecosystems.
+      </div>
+      <div class="think-tag">
+        <span><i class="fas fa-lightbulb"></i> THINK.</span>
+        <span style="background:transparent; letter-spacing:0;">precision · scale · foresight</span>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-number">8+</span><span class="stat-label">Enterprise solutions</span></div>
+        <div class="stat"><span class="stat-number">∞</span><span class="stat-label">Edge to core</span></div>
+        <div class="stat"><span class="stat-number">100%</span><span class="stat-label">Data-driven impact</span></div>
+      </div>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="#work" class="btn-primary"><i class="fas fa-arrow-down"></i> Explore work</a>
+        <a href="#contact" class="btn-outline"><i class="fas fa-comment-dots"></i> Let's connect</a>
+      </div>
+    </div>
+
+    <!-- Featured Projects - hint at enterprise, cognitive, hybrid -->
+    <section id="work">
+      <div class="section-title">Featured intelligence</div>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-brain"></i></div>
+          <h3>Cognitive Edge Suite</h3>
+          <p>Real‑time anomaly detection on distributed edge nodes. 40% latency reduction.</p>
+          <div class="tech-stack"><span>TensorFlow Lite</span><span>K3s</span><span>MQTT</span></div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+          <h3>Hybrid Mesh Orchestrator</h3>
+          <p>Unified control plane for multi-cloud + on‑prem deployments with auto‑healing.</p>
+          <div class="tech-stack"><span>Kubernetes</span><span>Terraform</span><span>Go</span></div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-chart-line"></i></div>
+          <h3>Predictive Analytics Core</h3>
+          <p>Time-series forecasting engine for industrial IoT, 99.5% accuracy.</p>
+          <div class="tech-stack"><span>Python</span><span>PyTorch</span><span>InfluxDB</span></div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-shield-alt"></i></div>
+          <h3>Zero‑Trust Security Fabric</h3>
+          <p>AI-driven policy enforcement & compliance automation for financial workloads.</p>
+          <div class="tech-stack"><span>eBPF</span><span>Open Policy Agent</span><span>Falco</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About + Skills + subtle "global enterprise" mindset -->
+    <section id="about">
+      <div class="section-title">Mindset & methodology</div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p style="font-weight:500; font-size:1.2rem;">Design with depth, deliver with integrity.</p>
+          <p style="margin-top: 1rem;">I focus on bridging high‑level architecture and robust implementation — building enterprise-grade platforms that adapt, scale, and endure. Inspired by the principle that <strong>thoughtful systems create lasting value</strong>, I collaborate across disciplines to turn complex challenges into elegant, measurable outcomes.</p>
+          <div class="skill-badge" style="margin-top: 1.8rem;">
+            <span>Cloud Native</span><span>AI/ML Pipelines</span><span>Distributed Systems</span><span>DevSecOps</span>
+          </div>
+        </div>
+        <div style="background:#f8fbfe; border-radius: 32px; padding: 1.5rem; border:1px solid #eef2fa;">
+          <i class="fas fa-quote-left" style="color:#0f62ac; opacity:0.6; font-size:1.8rem;"></i>
+          <p style="font-style: normal; margin-top: 0.5rem; font-weight: 450;">"The best technology feels inevitable — invisible, yet indispensable. I design for that seamlessness."</p>
+          <hr style="margin: 1rem 0; border:0; height:1px; background:#e2edf7;">
+          <div style="display: flex; gap: 0.5rem; flex-wrap:wrap; justify-content: space-between; align-items:center;">
+            <span><i class="fas fa-globe-americas"></i> Global footprint</span>
+            <span><i class="fas fa-chart-simple"></i> 30+ deployments</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact + direct GitHub & email links with 'blue' brand -->
+    <section id="contact">
+      <div class="section-title">Collaborate & connect</div>
+      <div class="contact-cards">
+        <div class="contact-card">
+          <i class="fas fa-envelope"></i>
+          <h4>Direct email</h4>
+          <p><a href="mailto:ariya.khaliyyc@gmail.com">ariya.khaliyyc@gmail.com</a></p>
+          <p style="font-size:0.8rem; margin-top:0.6rem;">Enterprise & open-source inquiries</p>
+        </div>
+        <div class="contact-card">
+          <i class="fab fa-github"></i>
+          <h4>Code & contributions</h4>
+          <p><a href="https://github.com/ari-yyc-web" target="_blank" rel="noopener noreferrer">github.com/ari-yyc-web</a></p>
+          <p style="font-size:0.8rem; margin-top:0.6rem;">Explore repositories, toolkits, demos</p>
+        </div>
+        <div class="contact-card">
+          <i class="fas fa-comments"></i>
+          <h4>Let’s think forward</h4>
+          <p>Available for advisory & architecture</p>
+          <div style="margin-top: 0.7rem;"><span class="btn-outline" style="padding:0.3rem 1rem; font-size:0.7rem;"><i class="fas fa-calendar-alt"></i> Schedule chat</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer: iconic nod to 'Smarter Planet' and blue stripes -->
+    <div class="footer">
+      <div class="smarter">
+        <i class="fas fa-chart-network"></i>  building for a smarter planet · since 2024
+      </div>
+      <p style="margin-top: 1.2rem;">© 2026 Ariya Khaliyy — precision engineering, human insight. <br>All interfaces crafted with clarity and purpose.</p>
+      <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 2rem; font-size: 0.7rem;">
+        <span><i class="fas fa-think-peaks"></i> Think. Lead. Transform.</span>
+        <span><i class="fas fa-chart-line"></i> Data-first ethos</span>
+      </div>
+      <!-- hidden visual microstripes as final hint (three stripes repeated) -->
+      <div style="display: flex; justify-content: center; gap: 5px; margin-top: 1.5rem; opacity: 0.25;">
+        <span style="width: 30px; height: 2px; background:#0f62ac; border-radius:2px;"></span>
+        <span style="width: 30px; height: 2px; background:#0f62ac; border-radius:2px;"></span>
+        <span style="width: 30px; height: 2px; background:#0f62ac; border-radius:2px;"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- tiny interactivity: smooth scroll on nav + optional mail/github feedback -->
+  <script>
+    (function() {
+      // smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href === "#" || href === "") return;
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+      
+      // add subtle copy feedback for email click (optional but nice)
+      const emailLink = document.querySelector('a[href^="mailto:ariya.khaliyyc@gmail.com"]');
+      if (emailLink) {
+        emailLink.addEventListener('click', (e) => {
+          // just micro feedback without interruption
+          const toast = document.createElement('div');
+          toast.innerText = '📧 Email address copied to clipboard? (manual)';
+          toast.style.position = 'fixed';
+          toast.style.bottom = '20px';
+          toast.style.left = '20px';
+          toast.style.backgroundColor = '#0f62ac';
+          toast.style.color = 'white';
+          toast.style.padding = '8px 18px';
+          toast.style.borderRadius = '40px';
+          toast.style.fontSize = '0.8rem';
+          toast.style.fontWeight = '500';
+          toast.style.zIndex = '999';
+          toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+          document.body.appendChild(toast);
+          setTimeout(() => toast.remove(), 2000);
+        });
+      }
+      
+      // tiny interaction: projects hover glow effect already in css but dynamic not needed
+      console.log('Portfolio ready — innovation starts with "Think."');
+    })();
+  </script>
+</body>
+</html>
